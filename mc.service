@@ -1,0 +1,11 @@
+[Unit]
+	Description=Minecraft server
+	After=network-online.target
+	Wants=network-online.target
+
+[Service]
+	ExecStart=/srv/mc/start.sh
+	ExecStop=/srv/mc/stop.sh
+
+[Install]
+	WantedBy=multi-user.target
