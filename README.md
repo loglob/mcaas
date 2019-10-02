@@ -30,7 +30,7 @@ which will create a screen session named 'mc-screen' through which you can direc
 
 to stop the server.
 
-If you prefer the SystemD service interface, copy /srv/mc/mc.service
+If you prefer the SystemD service interface, copy mc.service
 to any SystemD service directory ( /{lib,run,etc}/systemd/system ) and
 use ```service mc start``` and ```service mc stop``` instead.
 
@@ -59,7 +59,7 @@ Starts the server in a new screen session
 Stops the currently running server and closes its screen session
 
 ### update.sh
-Looks for the newest Minecraft server release and downloads it to /srv/mc/minecraft_server.sh
+Looks for the newest Minecraft server release and downloads it to minecraft_server.sh
 Also makes sure the directories bak/ and world/ exist and automatically accepts the EULA
 
 ## Configuration
