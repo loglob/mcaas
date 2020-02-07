@@ -1,6 +1,7 @@
 #!/bin/sh
 # mcserver-stop: stops a running minecraft server screen
 
+set -e
 dir="$(realpath "$(dirname "$0")")"
 screen_session=$(cat "$dir/conf/screen_session")
 

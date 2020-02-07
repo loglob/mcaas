@@ -49,7 +49,7 @@ rm -rf "$dir/.git" "$dir/install.sh" "$dir/README.md"
 
 read -p "Do you want to create a service file? " serv
 case $serv in
-	[Yy]* ) genService > /etc/systemd/system/mc.service ;;
+	[Yy]* ) genService > /etc/systemd/system/mc.service; echo "service file placed in /etc/systemd/system/mc.service" ;;
 esac
 
 read -p "Do you accept the Minecraft EULA? (https://account.mojang.com/documents/minecraft_eula) " eula

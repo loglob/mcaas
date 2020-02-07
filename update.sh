@@ -21,5 +21,3 @@ echo "Found $version"
 
 wget -q --show-progress -O "$dir/$file" "$download"
 chmod +x "$dir/$file"
-
-#echo "eula=true" > eula.txt
