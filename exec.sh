@@ -1,10 +1,9 @@
 #!/bin/sh
 # Execs the given command on the minecraft server screen
 
-# Make sure we're in the server directory (or at least the directory the scripts are in)
-cd "$(realpath "$(dirname "$0")")"
-
-screen_session=$(cat /srv/mc/conf/screen_session)
+set -e
+dir="$(realpath "$(dirname "$0")")"
+screen_session="$(cat "$dir/conf/screen_session")"
 
 if [ -z "$screen_session" ]
 then

@@ -1,10 +1,9 @@
 #!/bin/bash
 # backup.sh: Zips, timestamps and copies the world to bak/
 
-# Make sure we're in the server directory (or at least the directory the scripts are in)
-cd "$(realpath "$(dirname "$0")")"
+set -e
+dir="$(realpath "$(dirname "$0")")"
+timestamp="$(date "+%Y-%m-%d %H:%M:%S")"
 
-TIMESTAMP=$(date "+%Y-%m-%d %H:%M:%S")
-mkdir -p "bak"
-
-zip -r "bak/$TIMESTAMP.zip" "world"
+mkdir -p "$dir/bak"
+zip -r "$dir/bak/$timestamp.zip" "$dir/world"
