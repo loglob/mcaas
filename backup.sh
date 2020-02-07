@@ -9,7 +9,7 @@ screen_session=$(cat "$dir/conf/screen_session")
 if ( screen -ls | grep -q -w -F "$screen_session" )
 then
 	# setup a process that listens for the server to be done saving
-	tail -f -n 0 latest.log | grep -q -F "[Server thread/INFO]: Saved the game" &
+	tail -f -n 0 "$dir/log/latest.log" | grep -q -F "[Server thread/INFO]: Saved the game" &
 	# flush world changes to disk
 	"$dir/exec.sh" save-all flush
 	# wait for flush to finish
