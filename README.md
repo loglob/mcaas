@@ -21,6 +21,10 @@ and stores it in bak/
 ### exec.sh
 Sends its arguments to the server as a command
 
+### echo.sh
+Echoes all its arguments as a chat message.
+If no arguments are given, echoes STDIN line for line
+
 ### restore.sh
 Restores the world/ directory from the latest backup created with backup.sh
 
