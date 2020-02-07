@@ -1,7 +1,11 @@
 #!/bin/sh
 # mcserver-stop: stops a running minecraft server screen
+SCREEN_NAME="mc-screen"
 
-# Make sure we're in the server directory (or at least the directory the scripts are in)
-cd "$(realpath "$(dirname "$0")")"
-
-cd /srv/mcexec.sh stop
+#retrieve PID of screen session
+PID=$(screen -S "$SCREEN_NAME" -Q echo '$PID')
+# setup a background process that waits for the screen to exit
+tail --pid=$PID -f /dev/null &
+screen -X stuff "stop\n"
+# wait for server to actually exit
+wait $!
