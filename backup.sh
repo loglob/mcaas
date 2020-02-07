@@ -6,4 +6,4 @@ dir="$(realpath "$(dirname "$0")")"
 timestamp="$(date "+%Y-%m-%d %H:%M:%S")"
 
 mkdir -p "$dir/bak"
-zip -r "$dir/bak/$timestamp.zip" "$dir/world"
+jar cfM "$dir/bak/$timestamp.zip" -C "$dir" "world"
