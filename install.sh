@@ -43,14 +43,11 @@ then
 	dir=$(realpath "$1")
 fi
 
+mkdir -p "$dir"
 git clone --depth 1 https://github.com/loglob/mcaas "$dir"
 rm -rf "$dir/.git" "$dir/install.sh" "$dir/README.md"
 "$dir/update.sh"
-
-read -p "Do you want to create a service file? " serv
-case $serv in
-	[Yy]* ) genService | sudo tee /etc/systemd/system/mc.service > /dev/null; echo "service file placed in /etc/systemd/system/mc.service" ;;
-esac
+genService > "$dir/mc.service"
 
 #run jar once to generate default server.properties etc
 (
@@ -64,4 +61,27 @@ read -p "Do you accept the Minecraft EULA? (https://account.mojang.com/documents
 case $eula in
 	[Yy]* ) echo "eula=true" > "$dir/eula.txt"; echo "You can now start the server using '$dir/start.sh' or 'service mc start'.";;
 	* ) echo "You have to accept the EULA before you can use the server. You can do this by editing $dir/eula.txt";;
+esac
+
+read -p "Do you want to install the service now? " serv
+case $serv in
+	[Yy]* )
+		ipath="/etc/systemd/system/mc.service"
+		sudo ln -sf "$(realpath "$dir/mc.service")" "$ipath"
+		systemctl daemon-reload
+		echo "link service file placed in $ipath"
+
+		read -p "Do you want to automatically start the server on system startup? " autoinstall
+		case $autoinstall in
+			[Yy]* )
+				systemctl enable mc
+			;;
+			*)
+				echo "To enable manually, run 'systemctl enable mc'"
+			;;
+		esac
+	;;
+	*)
+		echo "To install manually, copy or link '$dir/mc.service' to a systemd service directory."
+	;;
 esac
