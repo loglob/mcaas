@@ -33,7 +33,7 @@ Starts the server. Doesn't exit until the server exits.
 
 ### stop.sh
 Stops the currently running server.
-Doesn't wait until the server is completely shut down.
+Waits until the server is completely shut down.
 
 ### update.sh
 Looks for the newest Fabric and Minecraft server release and downloads it to fabric-server-launcher.jar and server.jar
