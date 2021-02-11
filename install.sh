@@ -49,11 +49,19 @@ rm -rf "$dir/.git" "$dir/install.sh" "$dir/README.md"
 
 read -p "Do you want to create a service file? " serv
 case $serv in
-	[Yy]* ) genService > /etc/systemd/system/mc.service; echo "service file placed in /etc/systemd/system/mc.service" ;;
+	[Yy]* ) genService | sudo tee /etc/systemd/system/mc.service > /dev/null; echo "service file placed in /etc/systemd/system/mc.service" ;;
 esac
+
+#run jar once to generate default server.properties etc
+(
+	echo "Generating default server config..."
+	cd "$dir"
+	rm -f "eula.txt"
+	java -jar "$dir/fabric-server-launch.jar" nogui > /dev/null
+)
 
 read -p "Do you accept the Minecraft EULA? (https://account.mojang.com/documents/minecraft_eula) " eula
 case $eula in
-	[Yy]* ) echo "eula=true" > eula.txt; echo "You can now start the server using '$dir/start.sh' or 'service mc start'.";;
+	[Yy]* ) echo "eula=true" > "$dir/eula.txt"; echo "You can now start the server using '$dir/start.sh' or 'service mc start'.";;
 	* ) echo "You have to accept the EULA before you can use the server. You can do this by editing $dir/eula.txt";;
 esac
