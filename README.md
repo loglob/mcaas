@@ -21,18 +21,18 @@ If you generated a service file and want the server to start automatically with 
 
 ## The scripts
 ### backup.sh
-Creates a timestamped .zip archive of world/
-and stores it in bak/
+Creates a timestamped .zip archive of `world/`
+and stores it in `bak/`.
 
 ### exec.sh
 Sends its arguments to the server as a command.
 
 ### echo.sh
 Echoes all its arguments as a chat message.
-If no arguments are given, echoes STDIN line for line
+If no arguments are given, echoes STDIN line for line.
 
 ### restore.sh
-Restores the world/ directory from the latest backup created with backup.sh
+Restores the `world/` directory from the latest backup created with backup.sh.
 
 ### start.sh
 Starts the server. Doesn't exit until the server exits.
