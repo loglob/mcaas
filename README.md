@@ -13,11 +13,14 @@ Download the install script (install.sh), make it executable and run it.
 
 By specifying a directory as first argument, it will install to that directory rather than the default _/srv/mc_.
 
-You will be asked if you want to generate a service file. The unit will be named _mc_.
+A unit file will be generated in the install directory. You will be asked if you want to autmatically install and enable it.
 
-If you generated a service file and want the server to start automatically with the system, run
+Note that RCON needs to be enabled and properly configured before the service can be used. To do so, edit these entries in server.properties:
+ * rcon.port
+ * rcon.password
+ * enable-rcon
 
-```systemctl enable mc```
+After installing, the server can be started and stopped by running `service mc start` and `service mc stop`.
 
 ## The scripts
 ### backup.sh
@@ -49,5 +52,5 @@ Sets up a minecraft server and downloads all required components.
 Optionally generates a systemd service file.
 
 ## Configuration
-mcaas can be configured via jre_args.
+mcaas can be configured via the `jre_args` file located in the install directory.
 The contents of jre_args are passed to the JRE as arguments when starting the server.
