@@ -1,13 +1,9 @@
-#!/bin/sh
-# Execs the given command on the minecraft server screen
-
+#!/usr/bin/env sh
+# exec.sh: Executes the given commands on the server
 set -e
-dir="$(realpath "$(dirname "$0")")"
-screen_session="$(cat "$dir/conf/screen_session")"
+cd "$(realpath "$(dirname "$0")")"
 
-if [ -z "$screen_session" ]
-then
-	>&2 echo "/src/mc/conf/screen_session may not be empty"
-fi
+export MCRCON_PORT=$(./prop.sh rcon.port)
+export MCRCON_PASS=$(./prop.sh rcon.password)
 
-screen -S "$screen_session" -X stuff "$*\n"
+mcrcon "$@"

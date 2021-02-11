@@ -1,20 +1,16 @@
 #!/bin/bash
 # backup.sh: Zips, timestamps and copies the world to bak/
+cd "$(realpath "$(dirname "$0")")"
 
-set -e
-dir="$(realpath "$(dirname "$0")")"
+
+status=$(systemctl is-active mc)
 timestamp="$(date "+%Y-%m-%d %H:%M:%S")"
-screen_session=$(cat "$dir/conf/screen_session")
+mkdir -p "bak"
 
-if ( screen -ls | grep -q -w -F "$screen_session" )
+if [ "$status" = "active" ]
 then
-	# setup a process that listens for the server to be done saving
-	tail -f -n 0 "$dir/logs/latest.log" | grep -q -F "[Server thread/INFO]: Saved the game" &
 	# flush world changes to disk
-	"$dir/exec.sh" save-all flush
-	# wait for flush to finish
-	wait $!
+	./exec.sh "/save-all flush"
 fi
 
-mkdir -p "$dir/bak"
-jar cfM "$dir/bak/$timestamp.zip" -C "$dir" "world"
+jar cfM "bak/$timestamp.zip" "world"

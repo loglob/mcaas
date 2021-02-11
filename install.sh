@@ -35,7 +35,7 @@ require () {
 require "downloading the server" wget
 require "downloading scripts" git
 require "parsing the Minecraft webpage" hxnormalize hxselect xmllint
-require "running the Minecraft server" java screen
+require "running the Minecraft server" java
 set -e
 
 if [ $# -gt 0 ]

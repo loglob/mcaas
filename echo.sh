@@ -1,14 +1,11 @@
-#!/bin/sh
+#!/usr/bin/env sh
+# echo.sh: Echoes its arguments or stdin to ingame chat.
 set -e
-dir="$(realpath "$(dirname "$0")")"
-screen_session=$(cat "$dir/conf/screen_session")
+cd "$(realpath "$(dirname "$0")")"
 
 if [ $# -eq 0 ]
 then
-	while read line
-	do
-		screen -S "$screen_session" -X stuff "/say $line \n"
-	done
+	awk '{ printf "/say %s\n",$0 }' | xargs -d '\n' ./exec.sh
 else
-	screen -S "$screen_session" -X stuff "/say $* \n"
+	./exec.sh "/say $*"
 fi

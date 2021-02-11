@@ -19,7 +19,7 @@ Creates a timestamped .zip archive of world/
 and stores it in bak/
 
 ### exec.sh
-Sends its arguments to the server as a command
+Sends its arguments to the server as a command.
 
 ### echo.sh
 Echoes all its arguments as a chat message.
@@ -29,24 +29,19 @@ If no arguments are given, echoes STDIN line for line
 Restores the world/ directory from the latest backup created with backup.sh
 
 ### start.sh
-Starts the server in a new screen session
+Starts the server. Doesn't exit until the server exits.
 
 ### stop.sh
-Stops the currently running server and closes its screen session.
-Blocks until the screen is closed
+Stops the currently running server.
+Doesn't wait until the server is completely shut down.
 
 ### update.sh
-Looks for the newest Minecraft server release and downloads it to minecraft_server.jar
+Looks for the newest Fabric and Minecraft server release and downloads it to fabric-server-launcher.jar and server.jar
 
 ### install.sh
 Sets up a minecraft server and downloads all required components.
 Optionally generates a systemd service file.
 
 ## Configuration
-mcaas can be configured via the files found in conf/
-
-### jre_args
-The contents of jre_args are passed as arguments to the JRE when starting the server.
-
-### screen_session
-The contents of screen_session are used as the session name for the screen session mcaas creates.
+mcaas can be configured via jre_args.
+The contents of jre_args are passed to the JRE as arguments when starting the server.

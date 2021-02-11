@@ -1,19 +1,11 @@
-#!/bin/sh
-# mcserver-start: starts a screen to run a minecraft server
-
+#!/usr/bin/env sh
 set -e
-dir="$(realpath "$(dirname "$0")")"
-screen_session=$(cat "$dir/conf/screen_session")
+cd "$(realpath "$(dirname "$0")")"
 
-if [ -z "$screen_session" ]
+if [ "$(./prop.sh enable-rcon)" != "true" ] || [ -z "$(./prop.sh rcon.password)" ] || [ -z "$(./prop.sh rcon.port)" ]
 then
-	>&2 echo "$dir/conf/screen_session may not be empty"
-	exit
+	>&2 echo "RCON needs to be enabled and configured!"
+	exit 1
 fi
 
-# The arguments to the JRE (i.e. -Xmx). May be empty.
-jre_args=$(cat "$dir/conf/jre_args")
-
-# Minecraft won't work unless the eula.txt is in the current working directory
-cd "$dir"
-screen -d -m -S "$screen_session" java $jre_args -jar fabric-server-launch.jar nogui
+echo " -jar fabric-server-launch.jar nogui " | cat jre_args - | xargs java
