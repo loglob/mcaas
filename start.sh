@@ -16,4 +16,4 @@ jre_args=$(cat "$dir/conf/jre_args")
 
 # Minecraft won't work unless the eula.txt is in the current working directory
 cd "$dir"
-screen -d -m -S "$screen_session" java $jre_args -jar minecraft_server.jar nogui
+screen -d -m -S "$screen_session" java $jre_args -jar fabric-server-launch.jar nogui

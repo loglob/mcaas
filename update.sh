@@ -1,23 +1,24 @@
-#!/bin/sh
+#!/usr/bin/env sh
 # mcserver-download: Downloads the newest available minecraft server to minecraft_server.jar, overwriting any previous versions
-
 set -e
 
-dir="$(realpath "$(dirname "$0")")"
-echo "Looking for newest minecraft server version..."
+# navigate to directory in which script is located
+cd "$(realpath "$(dirname "$0")")"
+echo "Looking for newest fabric installer..."
 
-webpage="https://www.minecraft.net/en-us/download/server/"
-selector="a[href$=\"server.jar\"]"
-file="minecraft_server.jar"
+index="https://maven.fabricmc.net/net/fabricmc/fabric-installer/"
+vers=$(wget -q -O - "$index" | egrep -o '[[:digit:]]+(\.[[:digit:]]+)+' | sort -un | tail -1 )
 
-# extract the <a> Element for the server.jar download
-link=$(wget -q -O - "$webpage" | hxnormalize -x | hxselect "$selector")
-# extract the Version of the found server.jar
-version=$(echo "$link" | xmllint --xpath "string(/a)" -)
-# extract the URL of the found server.jar
-download=$(echo "$link" | xmllint --xpath "string(/a/@href)" -)
+echo "Found version $vers, downloading..."
 
-echo "Found $version"
+outf="fabric-installer.jar"
+file="https://maven.fabricmc.net/net/fabricmc/fabric-installer/$vers/fabric-installer-$vers.jar"
 
-wget -q --show-progress -O "$dir/$file" "$download"
-chmod +x "$dir/$file"
+wget -q --show-progress -O "$outf" "$file"
+
+java -jar "$outf" server -downloadMinecraft
+
+if [ -e mods/*.jar ]
+then
+	echo "note: Your installed mods may be out of date."
+fi
