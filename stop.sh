@@ -1,4 +1,5 @@
 #!/usr/bin/env sh
+# stop.sh: Stops the server. Waits until server exits.
 set -e
 cd "$(realpath "$(dirname "$0")")"
 

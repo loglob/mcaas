@@ -1,9 +1,8 @@
 #!/usr/bin/env sh
-# mcserver-download: Downloads the newest available minecraft server to minecraft_server.jar, overwriting any previous versions
+# mcserver-download: Downloads the latest available Fabric installer and server
 set -e
-
-# navigate to directory in which script is located
 cd "$(realpath "$(dirname "$0")")"
+
 echo "Looking for newest fabric installer..."
 
 index="https://maven.fabricmc.net/net/fabricmc/fabric-installer/"

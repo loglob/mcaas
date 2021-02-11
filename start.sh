@@ -1,4 +1,5 @@
 #!/usr/bin/env sh
+# start.sh: Starts the server. Doesn't exit until server exits.
 set -e
 cd "$(realpath "$(dirname "$0")")"
 

@@ -2,7 +2,6 @@
 # backup.sh: Zips, timestamps and copies the world to bak/
 cd "$(realpath "$(dirname "$0")")"
 
-
 status=$(systemctl is-active mc)
 timestamp="$(date "+%Y-%m-%d %H:%M:%S")"
 mkdir -p "bak"
