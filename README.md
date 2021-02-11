@@ -1,10 +1,16 @@
 # mcaas
 Minecraft as a (systemD) service
 
-A loose collection of scripts for hosting a minecraft server, including a systemD service.
+A loose collection of scripts for hosting a minecraft fabric server, including a systemD service.
 
 ## How to use
 Download the install script (install.sh), make it executable and run it.
+```sh
+	wget "https://raw.githubusercontent.com/loglob/mcaas/master/install.sh" -v -O mcaas.sh
+	./mcaas.sh # custom install directory here
+	rm mcaas.sh
+```
+
 By specifying a directory as first argument, it will install to that directory rather than the default _/srv/mc_.
 
 You will be asked if you want to generate a service file. The unit will be named _mc_.
