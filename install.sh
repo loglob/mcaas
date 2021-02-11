@@ -10,7 +10,7 @@ echo "[Unit]
 	Wants=network-online.target
 
 [Service]
-	Type=forking
+	Type=simple
 	ExecStart=$dir/start.sh
 	ExecStop=$dir/stop.sh
 
@@ -34,7 +34,7 @@ require () {
 
 require "downloading the server" wget
 require "downloading scripts" git
-require "parsing the Minecraft webpage" hxnormalize hxselect xmllint
+require "parsing the Fabric webpage" hxnormalize hxselect xmllint
 require "running the Minecraft server" java
 set -e
 
