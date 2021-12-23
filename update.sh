@@ -17,13 +17,13 @@ wget -q --show-progress -O "$outf" "$file"
 
 java -jar "$outf" server -downloadMinecraft
 
-if [ -e mods/*.jar ]
+if [ -e mods ] && [ -n "$(ls mods)" ]
 then
 	echo "note: Your installed mods may be out of date."
 fi
 
-if [ ! jarsigner -verify "fabric-server-launch.jar" ]
+if ! jarsigner -verify "fabric-server-launch.jar"
 then
 	echo "The current fabric launcher isn't signed properly, removing bad signatures..."
-	zip -d "fabric-server-launch" "META-INF/*.SF" "META-INF/*.RSA"
+	zip -d "fabric-server-launch.jar" "META-INF/*.SF" "META-INF/*.RSA"
 fi
