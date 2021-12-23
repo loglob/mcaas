@@ -6,7 +6,7 @@ cd "$(realpath "$(dirname "$0")")"
 echo "Looking for newest fabric installer..."
 
 index="https://maven.fabricmc.net/net/fabricmc/fabric-installer/"
-vers=$(wget -q -O - "$index" | egrep -o '[[:digit:]]+(\.[[:digit:]]+)+' | sort -un | tail -1 )
+vers=$(wget -q -O - "$index" | egrep -o '[[:digit:]]+(\.[[:digit:]]+)+' | sort --version-sort | tail -1 )
 
 echo "Found version $vers, downloading..."
 
