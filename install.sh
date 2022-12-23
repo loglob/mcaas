@@ -36,6 +36,7 @@ require "downloading the server" wget
 require "downloading scripts" git
 require "parsing the Fabric webpage" hxnormalize hxselect xmllint
 require "running the Minecraft server" java
+require "running the admin scripts" mcrcon
 set -e
 
 if [ $# -gt 0 ]
