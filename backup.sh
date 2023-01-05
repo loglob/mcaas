@@ -12,4 +12,4 @@ then
 	./exec.sh "/save-all flush"
 fi
 
-jar cfM "bak/$timestamp.zip" "world"
+zip -9 -r "bak/$timestamp.zip" "world"
