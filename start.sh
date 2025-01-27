@@ -9,4 +9,12 @@ then
 	exit 1
 fi
 
-echo " -jar fabric-server-launch.jar nogui " | cat jre_args - | xargs java
+# use JRE from JAVA_HOME if set, system default otherwise
+if [ -z "$JAVA_HOME" ]
+then
+	JRE=java
+else
+	JRE="$JAVA_HOME"/bin/java
+fi
+
+echo " -jar fabric-server-launch.jar nogui " | cat jre_args - | xargs "$JRE"
