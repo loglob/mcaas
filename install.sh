@@ -2,6 +2,11 @@
 # install.sh: Standalone script for downloading and installing the minecraft server
 # If an argument is given, use that directory for the server
 
+if [ -z "$service_user" ]
+then
+	service_user="minecraft"
+fi
+
 genService () {
 echo "[Unit]
 	Description=Minecraft server
@@ -13,11 +18,23 @@ echo "[Unit]
 	ExecStart=$dir/start.sh
 	ExecStop=$dir/stop.sh
 	Restart=on-failure
-	RestartSec=5s
+	RestartSec=5s"
 
+set +e
+service_group="$(id -g -n "$service_user" 2>/dev/null)"
+if [ $? -eq 0 ]
+then
+	echo "Running the service under $service_user:$service_group" 1>&2
+	echo "	user=$service_user"
+	echo "	group=$service_group"
+else
+	echo "Warning: The created service runs as root. Setting up an unprivileged user is strongly recommended." 1>&2
+fi
+set -e
+
+echo "
 [Install]
-	WantedBy=multi-user.target
-"
+	WantedBy=multi-user.target"
 }
 
 require () {
@@ -59,7 +76,7 @@ rm -rf "$dir/.git" "$dir/install.sh" "$dir/README.md"
 "$dir/update.sh"
 service_name="$(basename "$dir").service"
 service="$dir/$service_name"
-genService > "$service"
+genService 2>&1 1> "$service"
 
 #run jar once to generate default server.properties etc
 (

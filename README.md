@@ -4,16 +4,23 @@ Minecraft as a (systemD) service
 A loose collection of scripts for hosting a minecraft fabric server, including a systemD service.
 
 ## How to use
-Download the install script (install.sh), make it executable and run it.
+Run the install script:
 ```sh
-	wget "https://raw.githubusercontent.com/loglob/mcaas/master/install.sh" -v -O mcaas.sh
-	./mcaas.sh # custom install directory here
-	rm mcaas.sh
+	sh -c "$(wget "https://raw.githubusercontent.com/loglob/mcaas/master/install.sh" -O -)"
+```
+or
+```sh
+	sh -c "$(curl -fsSL "https://raw.githubusercontent.com/loglob/mcaas/master/install.sh")"
 ```
 
-By specifying a directory as first argument, it will install to that directory rather than the default _/srv/mc_.
+You will be asked for a directory to install the server into.
 
-A unit file will be generated in the install directory. You will be asked if you want to autmatically install and enable it.
+A unit file will be generated in the install directory. You will be asked if you want to automatically install and enable it.
+
+> [!CAUTION]
+> You should run this service under an unprivileged user.
+> If a user named `minecraft` exists, it will be used.
+> To use a different user, pass it via the `service_user` environment variable
 
 Note that RCON needs to be enabled and properly configured before the service can be used. To do so, edit these entries in server.properties:
  * rcon.port
