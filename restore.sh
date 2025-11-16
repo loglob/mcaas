@@ -3,7 +3,15 @@
 set -e
 cd "$(realpath "$(dirname "$0")")"
 
-if [ "$(systemctl is-active mc)" = "active" ]
+if [ -e *.service ] 2>&-
+then
+	SERVICE=$(basename *.service .service)
+else
+	SERVICE="$(basename "$(pwd)")"
+	>&2 echo "Not sure how the service is called based on *.service files, going with '$SERVICE'"
+fi
+
+if systemctl is-active -q "$SERVICE"
 then
 	echo "Cannot load backup while server is running!"
 	exit 1
