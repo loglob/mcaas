@@ -84,6 +84,8 @@ genService 2>&1 1> "$service"
 	cd "$dir"
 	rm -f "eula.txt"
 	java -jar "$dir/fabric-server-launch.jar" nogui > /dev/null
+	# enable rcon and set a random password
+	sed -E -i 's/^(enable-rcon=).*$/\1true/; s|^rcon.password=$|&'"$(mktemp -u XXXXXXXXXXXX)|" "$dir/server.properties"
 )
 
 read -p "Do you accept the Minecraft EULA? (https://account.mojang.com/documents/minecraft_eula) " eula

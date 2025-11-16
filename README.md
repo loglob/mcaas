@@ -8,10 +8,6 @@ Run the install script:
 ```sh
 	sh -c "$(wget "https://raw.githubusercontent.com/loglob/mcaas/master/install.sh" -O -)"
 ```
-or
-```sh
-	sh -c "$(curl -fsSL "https://raw.githubusercontent.com/loglob/mcaas/master/install.sh")"
-```
 
 You will be asked for a directory to install the server into.
 
@@ -22,10 +18,7 @@ A unit file will be generated in the install directory. You will be asked if you
 > If a user named `minecraft` exists, it will be used.
 > To use a different user, pass it via the `service_user` environment variable
 
-Note that RCON needs to be enabled and properly configured before the service can be used. To do so, edit these entries in server.properties:
- * rcon.port
- * rcon.password
- * enable-rcon
+The install script enables RCON and the management scripts will only work properly with RCON enabled.
 
 After installing, the server can be started and stopped by running `service mc start` and `service mc stop`.
 
