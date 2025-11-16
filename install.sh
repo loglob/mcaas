@@ -12,6 +12,8 @@ echo "[Unit]
 	Type=simple
 	ExecStart=$dir/start.sh
 	ExecStop=$dir/stop.sh
+	Restart=on-failure
+	RestartSec=5s
 
 [Install]
 	WantedBy=multi-user.target
