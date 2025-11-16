@@ -1,7 +1,6 @@
 #!/bin/sh
 # install.sh: Standalone script for downloading and installing the minecraft server
 # If an argument is given, use that directory for the server
-dir="/srv/mc"
 
 genService () {
 echo "[Unit]
@@ -41,9 +40,17 @@ set -e
 
 if [ $# -gt 0 ]
 then
-	dir=$(realpath "$1")
+	dir="$1"
+else
+	read -p "Where to install? [/srv/mc] " dir
+
+	if [ -z "$dir" ]
+	then
+		dir="/srv/mc"
+	fi
 fi
 
+dir="$(realpath "$dir")"
 mkdir -p "$dir"
 git clone --depth 1 https://github.com/loglob/mcaas "$dir"
 rm -rf "$dir/.git" "$dir/install.sh" "$dir/README.md"
