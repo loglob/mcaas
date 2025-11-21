@@ -25,8 +25,8 @@ service_group="$(id -g -n "$service_user" 2>/dev/null)"
 if [ $? -eq 0 ]
 then
 	echo "Running the service under $service_user:$service_group" 1>&2
-	echo "	user=$service_user"
-	echo "	group=$service_group"
+	echo "	User=$service_user"
+	echo "	Group=$service_group"
 else
 	echo "Warning: The created service runs as root. Setting up an unprivileged user is strongly recommended." 1>&2
 fi
